@@ -1,7 +1,9 @@
 package org.launchcode.techjobs.console;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
@@ -98,7 +100,7 @@ public class TechJobs {
 
             // Validate user's input
             if (choiceIdx < 0 || choiceIdx >= choiceKeys.length) {
-                System.out.println("Invalid choice. Try again.");
+                 System.out.println("Invalid choice. Try again.");
             } else {
                 validChoice = true;
             }
@@ -110,7 +112,16 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        for(HashMap<String, String> job : someJobs){
+            for(HashMap.Entry<String, String> entry : job.entrySet()){
+                System.out.println(entry.getKey() + ": " +  entry.getValue());
 
-        System.out.println("printJobs is not implemented yet");
+            }
+            System.out.println("*****");
+        }
+        if(someJobs.size() == 0){
+            System.out.println("No results found");
+        }
     }
+
 }
