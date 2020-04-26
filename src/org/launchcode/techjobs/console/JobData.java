@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class JobData {
     private static final String DATA_FILE = "resources/job_data.csv";
     private static Boolean isDataLoaded = false;
 
-    private static ArrayList<HashMap<String, String>> allJobs;
+    private static Collection<HashMap<String, String>> allJobs;
 
     /**
      * Fetch list of all values from loaded data,
@@ -51,7 +52,8 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-        return allJobs;
+
+        return new ArrayList<>(allJobs);
     }
 
     /**
@@ -74,7 +76,7 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase();
 
             if (aValue.contains(value)) {
                 jobs.add(row);
@@ -94,8 +96,10 @@ public class JobData {
 
             for (HashMap.Entry<String, String> entry : job.entrySet()) {
 
-                if (entry.getValue().contains(searchTerm) && !searchAllJobs.contains(job)) {
+                if (entry.getValue().toLowerCase().contains(searchTerm)) {
+
                     searchAllJobs.add(job);
+
 
                 }
             }
@@ -134,6 +138,8 @@ public class JobData {
 
                 allJobs.add(newJob);
             }
+
+
 
             // flag the data as loaded, so we don't do it twice
             isDataLoaded = true;
